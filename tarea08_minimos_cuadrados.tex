@@ -1,0 +1,189 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath,amssymb}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{parskip}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{listings}
+
+\lstset{
+  basicstyle=\ttfamily\small,
+  breaklines=true,
+  columns=fullflexible,
+  keywordstyle=\color{blue},
+  commentstyle=\color{gray},
+  showstringspaces=false,
+  frame=single
+}
+
+\geometry{top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm}
+
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\fancyhead[C]{%
+  \begin{center}
+    \textbf{ESCUELA POLIT\'ECNICA NACIONAL}\\[-2pt]
+    \textbf{M\'ETODOS NUM\'ERICOS}\\[-2pt]
+    \textbf{GR1CC}
+  \end{center}
+}
+\setlength{\headheight}{52pt}
+\fancyfoot[C]{\thepage}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+
+\titleformat{\section}[block]{\bfseries\large}{}{0pt}{}
+\titleformat{\subsection}[block]{\bfseries}{}{0pt}{}
+
+\begin{document}
+
+\vspace*{0.5cm}
+
+\textbf{Nombre:} Karina C\'ardenas D\'iaz \hfill \textbf{Fecha:} 13/07/2026
+
+\vspace{0.3cm}
+\begin{center}
+  \textbf{\large TAREA 08 --- AJUSTE POR M\'INIMOS CUADRADOS}\\[2pt]
+  \textbf{Unidad 03-C}
+\end{center}
+\vspace{0.2cm}
+
+\hrule
+\vspace{0.4cm}
+
+\section*{CONJUNTO DE EJERCICIOS}
+
+\textbf{1.} Dados los datos:
+
+\begin{center}
+\begin{tabular}{c|cccccccccc}
+\toprule
+$x_i$ & 4.0 & 4.2 & 4.5 & 4.7 & 5.1 & 5.5 & 5.9 & 6.3 & 6.8 & 7.1 \\
+$y_i$ & 102.56 & 130.11 & 113.18 & 142.05 & 167.53 & 195.14 & 224.87 & 256.73 & 299.50 & 326.72 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{Descripci\'on:} Para cada modelo se plantea $E=\sum_{i=1}^{n}[y_i-f(x_i)]^2$ y se resuelve el sistema de ecuaciones normales derivado de minimizar $E$. Para los modelos no polinomiales ($be^{ax}$ y $bx^a$) se linealiza tomando logaritmo natural, se ajusta una recta sobre los datos transformados y se calcula $E$ sobre la escala original.
+
+\textbf{a. Grado 1:} Sistema normal $2\times 2$ con $S_x,\,S_y,\,S_{xx},\,S_{xy}$:
+\[
+\boxed{P_1(x) = -191.5724 + 71.6102\,x}, \qquad E = 1058.84
+\]
+
+\textbf{b. Grado 2:} Sistema normal $3\times 3$:
+\[
+\boxed{P_2(x) = 51.0008 - 19.3086\,x + 8.2171\,x^2}, \qquad E = 551.66
+\]
+
+\textbf{c. Grado 3:} Sistema normal $4\times 4$:
+\[
+\boxed{P_3(x) = 469.1633 - 254.8748\,x + 51.5610\,x^2 - 2.6068\,x^3}, \qquad E = 518.38
+\]
+
+\textbf{d. Forma $be^{ax}$:} Con $\ln y_i = \ln b + a x_i$ se ajusta la recta sobre $(x_i,\ln y_i)$:
+\[
+\boxed{f(x) = 24.7767\,e^{0.3685x}}, \qquad E = 821.01
+\]
+
+\textbf{e. Forma $bx^a$:} Con $\ln y_i = \ln b + a \ln x_i$ se ajusta la recta sobre $(\ln x_i,\ln y_i)$:
+\[
+\boxed{f(x) = 6.5187\,x^{1.9933}}, \qquad E = 581.56
+\]
+
+\begin{center}
+\includegraphics[width=0.85\textwidth]{ejercicio1.png}
+\end{center}
+
+El menor error corresponde al polinomio de grado 3, aunque el ajuste de grado 2 y la forma $bx^a$ tambi\'en describen razonablemente bien la tendencia creciente de los datos.
+
+\vspace{0.5cm}
+\textbf{2.} Repita el ejercicio 1 para los siguientes datos:
+
+\begin{center}
+\begin{tabular}{c|cccccccc}
+\toprule
+$x_i$ & 0.2 & 0.3 & 0.6 & 0.9 & 1.1 & 1.3 & 1.4 & 1.6 \\
+$y_i$ & 0.050446 & 0.098426 & 0.33277 & 0.72660 & 1.0972 & 1.5697 & 1.8487 & 2.5015 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{a. Grado 1:}
+\[
+\boxed{P_1(x) = -0.5125 + 1.6655\,x}, \qquad E = 0.3356
+\]
+
+\textbf{b. Grado 2:}
+\[
+\boxed{P_2(x) = 0.0851 - 0.3114\,x + 1.1294\,x^2}, \qquad E = 0.002420
+\]
+
+\textbf{c. Grado 3:}
+\[
+\boxed{P_3(x) = -0.0184 + 0.2484\,x + 0.4029\,x^2 + 0.2662\,x^3}, \qquad E = 5.07\times10^{-6}
+\]
+
+\textbf{d. Forma $be^{ax}$:}
+\[
+\boxed{f(x) = 0.0457\,e^{2.7073x}}, \qquad E = 1.0750
+\]
+
+\textbf{e. Forma $bx^a$:}
+\[
+\boxed{f(x) = 0.9502\,x^{1.8720}}, \qquad E = 0.05448
+\]
+
+\begin{center}
+\includegraphics[width=0.85\textwidth]{ejercicio2.png}
+\end{center}
+
+En este caso el polinomio de grado 3 pr\'acticamente interpola los datos (error casi nulo), lo que sugiere que la relaci\'on subyacente es muy cercana a un polinomio c\'ubico.
+
+\vspace{0.5cm}
+\textbf{3.} La tabla muestra los promedios de puntos del colegio de 20 estudiantes junto con su puntuaci\'on ACT de matem\'aticas. Grafique los datos y encuentre la recta por m\'inimos cuadrados.
+
+\textbf{Descripci\'on:} Se aplica el sistema normal de la recta $y=a_1x+a_0$ usando $S_x=\sum x_i,\ S_y=\sum y_i,\ S_{xx}=\sum x_i^2,\ S_{xy}=\sum x_iy_i$, con $n=20$.
+
+\textbf{Respuesta:}
+\[
+\boxed{y = 0.1009\,x + 0.4866}, \qquad E = 5.0487
+\]
+
+\begin{center}
+\includegraphics[width=0.85\textwidth]{ejercicio3.png}
+\end{center}
+
+La pendiente positiva indica una relaci\'on directa (aunque d\'ebil) entre la puntuaci\'on ACT y el promedio de calificaciones; la dispersi\'on de los puntos respecto a la recta explica el valor relativamente alto del error.
+
+\vspace{0.5cm}
+\textbf{4.} El conjunto de datos presentado al Subcomit\'e Antimonopolio del Senado muestra el peso promedio de distintos tipos de veh\'iculo y el porcentaje de accidentes en los que la lesi\'on m\'as grave fue fatal o seria. Encuentre la recta por m\'inimos cuadrados.
+
+\textbf{Respuesta:}
+\[
+\boxed{y = -0.0022550\,x + 13.1465}, \qquad E = 2.0591
+\]
+
+\begin{center}
+\includegraphics[width=0.85\textwidth]{ejercicio4.png}
+\end{center}
+
+La pendiente negativa confirma la relaci\'on esperada: a mayor peso promedio del veh\'iculo, menor el porcentaje de lesiones graves o fatales en caso de accidente.
+
+\vspace{0.3cm}
+\textbf{Repositorio:} \url{https://github.com/usuario/tarea08-minimos-cuadrados}
+
+\end{document}
